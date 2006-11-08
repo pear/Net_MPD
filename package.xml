@@ -14,7 +14,7 @@
     </maintainers>
     <release>
         <version>0.2.0dev</version>
-        <date>2006-10-26</date>
+        <date>2006-11-07</date>
         <license>PHP License 3.0</license>
         <state>devel</state>
         <notes>Various small changes</notes>
@@ -22,30 +22,33 @@
             <dep type="php" rel="ge" version="5.1.4"/>
         </deps>
         <filelist>
-            <file role="php" baseinstalldir="/" md5sum="3f2550bdc17cd37d5bb3adba6ff5a1ce" name="MPD.php"/>
-            <file role="php" baseinstalldir="/" md5sum="5d35be4d1fd3516274ef09f87899f970" name="MPD/Admin.php"/>
-            <file role="php" baseinstalldir="/" md5sum="5ce6aae9f66e1ad069a51202a8faba89" name="MPD/Common.php"/>
-            <file role="php" baseinstalldir="/" md5sum="58f91fdd29bde2f3634ce9fd1ff0cd32" name="MPD/Database.php"/>
-            <file role="php" baseinstalldir="/" md5sum="c595d78a4c10c561e0ccec8f2a114057" name="MPD/Playback.php"/>
-            <file role="php" baseinstalldir="/" md5sum="4cceb397904a0d1f183fa646fbbbe0a5" name="MPD/Playlist.php"/>
-            <file role="doc" baseinstalldir="/" md5sum="f724430327b122f00c6315be5acb7c17" name="MPD/docs/listArtists.php"/>
-            <file role="doc" baseinstalldir="/" md5sum="9283142098f0eb43bf022e47620b731a" name="MPD/docs/listCurrentPlaylist.php"/>
-            <file role="doc" baseinstalldir="/" md5sum="1ac42bfaa5b51ceec173274e3fe6cebd" name="MPD/docs/listSongs.php"/>
+            <file role="php" baseinstalldir="/" name="MPD.php"/>
+            <file role="php" baseinstalldir="/" name="MPD/Admin.php"/>
+            <file role="php" baseinstalldir="/" name="MPD/Common.php"/>
+            <file role="php" baseinstalldir="/" name="MPD/Database.php"/>
+            <file role="php" baseinstalldir="/" name="MPD/Playback.php"/>
+            <file role="php" baseinstalldir="/" name="MPD/Playlist.php"/>
+            <file role="doc" baseinstalldir="/" name="MPD/docs/listArtists.php"/>
+            <file role="doc" baseinstalldir="/" name="MPD/docs/listCurrentPlaylist.php"/>
+            <file role="doc" baseinstalldir="/" name="MPD/docs/listSongs.php"/>
         </filelist>
     </release>
     <changelog>
         <release>
             <version>0.1.0dev1</version>
             <state>devel</state>
-            <date>2006-10-25</date>
+            <date>2006-11-07</date>
             <notes>Initial release.</notes>
         </release>
         <release>
-            <version>1.0beta1</version>
-            <state>beta</state>
-            <date>2006-10-</date>
-            <notes>Quite stable, released the previous version too low. The package has been in development too long to be 0.1.0dev1, skipping to 1.0.0beta1.
-- Copied `getCurrentSong' from Net_MPD_Playlist to Net_MPD_Playback.</notes>
+            <version>0.0.2dev</version>
+            <state>dev</state>
+            <date>2006-</date>
+            <notes>
+- Copied `getCurrentSong' from Net_MPD_Playlist to Net_MPD_Playback.
+- Changed MPD.php to provied an object uniting the sub-objects. $mpd->Playlist->addSong() for example. Left the factory for other uses.
+- Changed MPD/Common.php to auto-connect when a command is run. This is to prevent several connections being opend without need, if the Net_MPD class is used to group them all. Also simplifies the connection process.
+- Moved the connection parameters back into the __construct method of the Net_MPD_Common class.</notes>
         </release>
     </changelog>
 </package>
