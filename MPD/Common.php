@@ -167,7 +167,7 @@ class Net_MPD_Common
                 try {
                     $this->connect();
                 } catch(PEAR_Exception $e) {
-                    throw new PEAR_Exception($e->getMessage, $e);
+                    throw new PEAR_Exception($e->getMessage(), $e);
                 }
             }
         
@@ -197,6 +197,7 @@ class Net_MPD_Common
             }
         
             //Loop through the connection, putting the data into $line
+            $output = array();
             while (!feof($this->_connection)) {
                 $line = fgets($this->_connection);
             
