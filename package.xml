@@ -14,7 +14,7 @@
     </maintainers>
     <release>
         <version>0.2.0dev</version>
-        <date>2006-11-07</date>
+        <date>2006-11-12</date>
         <license>PHP License 3.0</license>
         <state>devel</state>
         <notes>Various small changes</notes>
@@ -43,12 +43,13 @@
         <release>
             <version>0.0.2dev</version>
             <state>dev</state>
-            <date>2006-</date>
+            <date>2006-11-12</date>
             <notes>
 - Copied `getCurrentSong' from Net_MPD_Playlist to Net_MPD_Playback.
 - Changed MPD.php to provied an object uniting the sub-objects. $mpd->Playlist->addSong() for example. Left the factory for other uses.
 - Changed MPD/Common.php to auto-connect when a command is run. This is to prevent several connections being opend without need, if the Net_MPD class is used to group them all. Also simplifies the connection process.
-- Moved the connection parameters back into the __construct method of the Net_MPD_Common class.</notes>
+- Moved the connection parameters back into the __construct method of the Net_MPD_Common class.
+- Bugfix: defined $output before adding to it as an array, in Net_MPD_Common->read() function.</notes>
         </release>
     </changelog>
 </package>
