@@ -13,8 +13,8 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>0.2.0dev</version>
-        <date>2006-11-12</date>
+        <version>0.3.0dev</version>
+        <date>2006-11-20</date>
         <license>PHP License 3.0</license>
         <state>devel</state>
         <notes>- Copied `getCurrentSong' from Net_MPD_Playlist to Net_MPD_Playback.
@@ -26,15 +26,15 @@
             <dep type="php" rel="ge" version="5.1.4"/>
         </deps>
         <filelist>
-            <file role="php" baseinstalldir="/" name="MPD.php"/>
-            <file role="php" baseinstalldir="/" name="MPD/Admin.php"/>
-            <file role="php" baseinstalldir="/" name="MPD/Common.php"/>
-            <file role="php" baseinstalldir="/" name="MPD/Database.php"/>
-            <file role="php" baseinstalldir="/" name="MPD/Playback.php"/>
-            <file role="php" baseinstalldir="/" name="MPD/Playlist.php"/>
-            <file role="doc" baseinstalldir="/" name="MPD/docs/listArtists.php"/>
-            <file role="doc" baseinstalldir="/" name="MPD/docs/listCurrentPlaylist.php"/>
-            <file role="doc" baseinstalldir="/" name="MPD/docs/listSongs.php"/>
+            <file role="php" baseinstalldir="/" name="Net/MPD.php"/>
+            <file role="php" baseinstalldir="/" name="Net/MPD/Admin.php"/>
+            <file role="php" baseinstalldir="/" name="Net/MPD/Common.php"/>
+            <file role="php" baseinstalldir="/" name="Net/MPD/Database.php"/>
+            <file role="php" baseinstalldir="/" name="Net/MPD/Playback.php"/>
+            <file role="php" baseinstalldir="/" name="Net/MPD/Playlist.php"/>
+            <file role="doc" baseinstalldir="/" name="Net/MPD/docs/listArtists.php"/>
+            <file role="doc" baseinstalldir="/" name="Net/MPD/docs/listCurrentPlaylist.php"/>
+            <file role="doc" baseinstalldir="/" name="Net/MPD/docs/listSongs.php"/>
         </filelist>
     </release>
     <changelog>
