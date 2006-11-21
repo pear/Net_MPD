@@ -91,7 +91,7 @@ class Net_MPD_Common
                 return true;
             }
     
-            $connection = fsockopen($this->connection_params['host'],
+            $connection = @fsockopen($this->connection_params['host'],
                                     $this->connection_params['port'],
                                     $errn,
                                     $errs,
@@ -146,7 +146,7 @@ class Net_MPD_Common
                 fclose($this->_connection);
                 $this->_connection = null;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
             return true;
         }
@@ -167,7 +167,7 @@ class Net_MPD_Common
                 try {
                     $this->connect();
                 } catch(PEAR_Exception $e) {
-                    throw new PEAR_Exception($e->getMessage, $e);
+                    throw new PEAR_Exception($e->getMessage, $e->getCode());
                 }
             }
         
@@ -246,7 +246,7 @@ class Net_MPD_Common
                 $this->write($command);
                 $output = $this->read();
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         
 	                  
@@ -429,7 +429,7 @@ class Net_MPD_Common
             try {
                 $cmds = $this->runCommand('notcommands');
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         
             if (!isset($cmds['command'])) {
@@ -449,7 +449,7 @@ class Net_MPD_Common
                 $cmds = $this->runCommand('commands');
             
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
             if (!isset($cmds['command'])) {
                 return array();
@@ -469,7 +469,7 @@ class Net_MPD_Common
                     return true;
                 }
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
             return false;
         }
@@ -488,7 +488,7 @@ class Net_MPD_Common
                 }
                 return $stats['stats'];
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
 
@@ -506,7 +506,7 @@ class Net_MPD_Common
                 }
                 return $status['status'];
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
 }

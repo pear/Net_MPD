@@ -49,7 +49,7 @@ class Net_MPD_Playback extends Net_MPD_Common
                 }
                 return $out['file'][0];
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
 
@@ -66,7 +66,7 @@ class Net_MPD_Playback extends Net_MPD_Common
                 $this->runCommand('crossfade', $sec);
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
 
@@ -81,7 +81,7 @@ class Net_MPD_Playback extends Net_MPD_Common
                 $this->runCommand('next');
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
 
@@ -96,7 +96,7 @@ class Net_MPD_Playback extends Net_MPD_Common
                 $this->runCommand('previous');
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
 
@@ -111,7 +111,7 @@ class Net_MPD_Playback extends Net_MPD_Common
                 $this->runCommand('pause');
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
     /**
@@ -126,7 +126,7 @@ class Net_MPD_Playback extends Net_MPD_Common
                 $this->runCommand('play', $song);
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
     /**
@@ -141,7 +141,7 @@ class Net_MPD_Playback extends Net_MPD_Common
                 $this->runCommand('playid', $song);
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -158,7 +158,7 @@ class Net_MPD_Playback extends Net_MPD_Common
                 $this->runCommand('random', (int)$on);
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
 
@@ -175,7 +175,7 @@ class Net_MPD_Playback extends Net_MPD_Common
                 $this->runCommand('repeat', (int)$on);
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
 
@@ -192,7 +192,7 @@ class Net_MPD_Playback extends Net_MPD_Common
                 $this->runCommand('seek', array($song, $time));
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
 
@@ -209,7 +209,7 @@ class Net_MPD_Playback extends Net_MPD_Common
                 $this->runCommand('seekid', array($song, $time));
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
 
@@ -225,7 +225,7 @@ class Net_MPD_Playback extends Net_MPD_Common
                 $this->runCommand('setvol', $vol);
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
     /**
@@ -240,7 +240,7 @@ class Net_MPD_Playback extends Net_MPD_Common
                 $this->runCommand('stop');
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
 }

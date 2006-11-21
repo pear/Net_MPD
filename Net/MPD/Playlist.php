@@ -44,7 +44,7 @@ class Net_MPD_Playlist extends Net_MPD_Common {
                 $out = $this->runCommand('lsinfo', $dir);
                 return $out['playlist'];
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
     
@@ -60,7 +60,7 @@ class Net_MPD_Playlist extends Net_MPD_Common {
                 $this->runCommand('add', $file);
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -75,7 +75,7 @@ class Net_MPD_Playlist extends Net_MPD_Common {
                 $this->runCommand('clear');
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -94,7 +94,7 @@ class Net_MPD_Playlist extends Net_MPD_Common {
                 }
                 return $out['file'][0];
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -111,7 +111,7 @@ class Net_MPD_Playlist extends Net_MPD_Common {
                 $this->runCommand('delete', $song);
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -128,7 +128,7 @@ class Net_MPD_Playlist extends Net_MPD_Common {
                 $this->runCommand('deleteid', $id);
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -145,7 +145,7 @@ class Net_MPD_Playlist extends Net_MPD_Common {
                 $this->runCommand('load', $playlist);
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -163,7 +163,7 @@ class Net_MPD_Playlist extends Net_MPD_Common {
                 $this->runCommand('move', array($from, $to));
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
 
@@ -181,7 +181,7 @@ class Net_MPD_Playlist extends Net_MPD_Common {
                 $this->runCommand('moveid', array($fromId, $toId));
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -198,7 +198,7 @@ class Net_MPD_Playlist extends Net_MPD_Common {
                 $out = $this->runCommand('playlistinfo', $song, 0);
                 return isset($out['file'])?$out['file']:array();
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -214,7 +214,7 @@ class Net_MPD_Playlist extends Net_MPD_Common {
             try {
                 return $this->runCommand('playlistid', $song);
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -234,7 +234,7 @@ class Net_MPD_Playlist extends Net_MPD_Common {
             try {
                 return $this->runCommand($cmd, $version);
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -251,7 +251,7 @@ class Net_MPD_Playlist extends Net_MPD_Common {
                 $this->runCommand('rm', $playlist);
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -268,7 +268,7 @@ class Net_MPD_Playlist extends Net_MPD_Common {
                 $this->runCommand('save', $playlist);
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -284,7 +284,7 @@ class Net_MPD_Playlist extends Net_MPD_Common {
                 $this->runCommand('shuffle');
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -302,7 +302,7 @@ class Net_MPD_Playlist extends Net_MPD_Common {
                 $this->runCommand('swap', array($song1, $song2));
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -320,7 +320,7 @@ class Net_MPD_Playlist extends Net_MPD_Common {
                 $this->runCommand('swapid', array($songId1, $songId2));
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
 }

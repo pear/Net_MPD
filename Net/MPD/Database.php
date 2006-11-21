@@ -57,7 +57,7 @@ class Net_MPD_Database extends Net_MPD_Common
                 }
                 return $out['file'];
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -93,7 +93,7 @@ class Net_MPD_Database extends Net_MPD_Common
             
                 return $out[$metadata1];
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -108,7 +108,7 @@ class Net_MPD_Database extends Net_MPD_Common
             try {
                 return $this->runCommand('listall', $dir, 1);
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -123,7 +123,7 @@ class Net_MPD_Database extends Net_MPD_Common
             try {
                 return $this->runCommand('listallinfo', $dir);
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
   
@@ -138,7 +138,7 @@ class Net_MPD_Database extends Net_MPD_Common
             try {
                 return $this->runCommand('lsinfo', $dir);
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
 }

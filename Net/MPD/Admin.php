@@ -38,7 +38,7 @@ class Net_MPD_Admin extends Net_MPD_Common
             try {
                 return $this->runCommand('outputs');
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
     
@@ -56,7 +56,7 @@ class Net_MPD_Admin extends Net_MPD_Common
                 }
                 return false;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
     
@@ -74,7 +74,7 @@ class Net_MPD_Admin extends Net_MPD_Common
                 }
                 return false;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
     
@@ -92,7 +92,7 @@ class Net_MPD_Admin extends Net_MPD_Common
                 }
                 return true;
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
         }
     
@@ -107,7 +107,7 @@ class Net_MPD_Admin extends Net_MPD_Common
             try {
                 $this->runCommand('update', $path);
             } catch (PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e);
+                throw new PEAR_Exception($e->getMessage(), $e->getCode());
             }
             return true;
         }
