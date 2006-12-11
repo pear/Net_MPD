@@ -201,6 +201,7 @@ class Net_MPD_Common
       }
         
       //Loop through the connection, putting the data into $line
+      $output = array();
       while (!feof($this->_connection)) {
 	$line = fgets($this->_connection);
             
@@ -260,6 +261,7 @@ class Net_MPD_Common
       }
         
       //Write and then capture the output
+      $output = array();
       try {
 	$this->write($command);
 	$output = $this->read();
