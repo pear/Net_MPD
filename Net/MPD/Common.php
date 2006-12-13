@@ -530,3 +530,4 @@ class Net_MPD_Common
       }
     }
 }
+?>

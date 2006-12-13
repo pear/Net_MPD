@@ -1,7 +1,7 @@
 <?php
 ini_set('display_errors', true);
 error_reporting(E_ALL | E_STRICT);
-require_once 'MPD.php';
+require_once 'Net/MPD.php';
 $MPD_DB = Net_MPD::factory('Database');
 
 
@@ -12,3 +12,4 @@ foreach ($dump as $song) {
     echo '<li>'.$song['Title'].'</li>';
 }
 echo '</ol>';
+?>
