@@ -35,11 +35,7 @@ class Net_MPD_Admin extends Net_MPD_Common
     */
     public function getOutputs()
     {
-        try {
-            return $this->runCommand('outputs');
-        } catch (PEAR_Exception $e) {
-            throw new PEAR_Exception($e->getMessage(), $e->getCode());
-        }
+	return $this->runCommand('outputs');
     }
 
     /**
@@ -50,14 +46,10 @@ class Net_MPD_Admin extends Net_MPD_Common
     */
     public function disableOutput($id)
     {
-        try {
-            if ($this->runCommand('disableoutput', $id) == array()) {
-                return true;
-            }
-            return false;
-        } catch (PEAR_Exception $e) {
-            throw new PEAR_Exception($e->getMessage(), $e->getCode());
-        }
+      if ($this->runCommand('disableoutput', $id) == array()) {
+	return true;
+      }
+      return false;
     }
 
     /**
@@ -68,14 +60,10 @@ class Net_MPD_Admin extends Net_MPD_Common
     */
     public function enableOutput($id)
     {
-        try {
-            if ($this->runCommand('enableoutput', $id) == array()) {
-                return true;
-            }
-            return false;
-        } catch (PEAR_Exception $e) {
-            throw new PEAR_Exception($e->getMessage(), $e->getCode());
-        }
+      if ($this->runCommand('enableoutput', $id) == array()) {
+	return true;
+      }
+      return false;
     }
 
     /**
@@ -85,15 +73,11 @@ class Net_MPD_Admin extends Net_MPD_Common
     */
     public function kill()
     {
-        try {
-            $r = $this->runCommand('kill');
-            if ($r) {
-                @$this->disconnect();
-            }
-            return true;
-        } catch (PEAR_Exception $e) {
-            throw new PEAR_Exception($e->getMessage(), $e->getCode());
-        }
+	$r = $this->runCommand('kill');
+	if ($r) {
+	    @$this->disconnect();
+	}
+	return true;
     }
 
     /**
@@ -104,11 +88,7 @@ class Net_MPD_Admin extends Net_MPD_Common
     */
     public function updateDatabase($path = '')
     {
-        try {
-            $this->runCommand('update', $path);
-        } catch (PEAR_Exception $e) {
-            throw new PEAR_Exception($e->getMessage(), $e->getCode());
-        }
+	$this->runCommand('update', $path);
         return true;
     }
 }

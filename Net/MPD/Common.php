@@ -138,15 +138,10 @@ class Net_MPD_Common
      */
     public function disconnect()
     {
-        try {
-            $this->runCommand('close');
-            fclose($this->_connection);
-            $this->_connection = null;
-        }
-        catch(PEAR_Exception $e) {
-            throw new PEAR_Exception($e->getMessage(), $e->getCode());
-        }
-        return true;
+	$this->runCommand('close');
+	fclose($this->_connection);
+	$this->_connection = null;
+	return true;
     }
 
 
@@ -164,12 +159,7 @@ class Net_MPD_Common
         //Are we connected?
         if (!$this->isConnected()) {
             // Try to connect
-            try {
-                $this->connect();
-            }
-            catch(PEAR_Exception $e) {
-                throw new PEAR_Exception($e->getMessage(), $e->getCode());
-            }
+	    $this->connect();
         }
         //Write the data
         if (!fwrite($this->_connection, $data."\r\n")) {
@@ -248,13 +238,9 @@ class Net_MPD_Common
             $command.= ' "'.str_replace('"', '\"', $args) .'"';
         }
         //Write and then capture the output
-        $output = array();
-        try {
-            $this->write($command);
-            $output = $this->read();
-        } catch(PEAR_Exception $e) {
-            throw new PEAR_Exception($e->getMessage(), $e->getCode());
-        }
+	$this->write($command);
+	$output = $this->read();
+	
         $this->_output[] = array($command, $output);
         if ($output === array()) {
             return true;
@@ -419,12 +405,7 @@ class Net_MPD_Common
      */
     public function getNotCommands()
     {
-        try {
-            $cmds = $this->runCommand('notcommands');
-        }
-        catch(PEAR_Exception $e) {
-            throw new PEAR_Exception($e->getMessage(), $e->getCode());
-        }
+	$cmds = $this->runCommand('notcommands');
         if (!isset($cmds['command'])) {
             return array();
         }
@@ -440,13 +421,8 @@ class Net_MPD_Common
      */
     public function getCommands()
     {
-        try {
-            $cmds = $this->runCommand('commands');
-        }
-        catch(PEAR_Exception $e) {
-            throw new PEAR_Exception($e->getMessage(), $e->getCode());
-        }
-        if (!isset($cmds['command'])) {
+	$cmds = $this->runCommand('commands');
+	if (!isset($cmds['command'])) {
             return array();
         }
         return $cmds['command'];
@@ -461,14 +437,9 @@ class Net_MPD_Common
      */
     public function ping()
     {
-        try {
-            if ($this->runCommand('ping') == array()) {
-                return true;
-            }
-        }
-        catch(PEAR_Exception $e) {
-            throw new PEAR_Exception($e->getMessage(), $e->getCode());
-        }
+	if ($this->runCommand('ping') == array()) {
+	    return true;
+	}
         return false;
     }
 
@@ -481,16 +452,11 @@ class Net_MPD_Common
      */
     public function getStats()
     {
-        try {
-            $stats = $this->runCommand('stats');
-            if (!isset($stats['stats'])) {
-                return false;
-            }
-            return $stats['stats'];
-        }
-        catch(PEAR_Exception $e) {
-            throw new PEAR_Exception($e->getMessage(), $e->getCode());
-        }
+	$stats = $this->runCommand('stats');
+	if (!isset($stats['stats'])) {
+	    return false;
+	}
+	return $stats['stats'];
     }
 
 
@@ -502,16 +468,11 @@ class Net_MPD_Common
      */
     public function getStatus()
     {
-        try {
-            $status = $this->runCommand('status');
-            if (!isset($status['status'])) {
-                return false;
-            }
-            return $status['status'];
-        }
-        catch(PEAR_Exception $e) {
-            throw new PEAR_Exception($e->getMessage(), $e->getCode());
-        }
+	$status = $this->runCommand('status');
+	if (!isset($status['status'])) {
+	    return false;
+	}
+	return $status['status'];
     }
 }
 ?>

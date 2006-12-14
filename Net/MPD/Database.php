@@ -48,15 +48,12 @@ class Net_MPD_Database extends Net_MPD_Common
             $prms[] = $value;
         }
         $cmd = $caseSensitive ? 'find' : 'search';
-        try {
-            $out = $this->runCommand($cmd, $prms);
-            if (!isset($out['file'])) {
-                return array();
-            }
-            return $out['file'];
-        } catch(PEAR_Exception $e) {
-            throw new PEAR_Exception($e->getMessage(), $e->getCode());
-        }
+	
+	$out = $this->runCommand($cmd, $prms);
+	if (!isset($out['file'])) {
+	    return array();
+	}
+	return $out['file'];
     }
 
 
@@ -78,16 +75,12 @@ class Net_MPD_Database extends Net_MPD_Common
                 return false;
             }
         }
-        try {
-            if (!is_null($metadata2)) {
-                $out = $this->runCommand('list', array($metadata1, $metadata2, $search), 1);
-            } else {
-                $out = $this->runCommand('list', $metadata1, 1);
-            }
-            return $out[$metadata1];
-        } catch(PEAR_Exception $e) {
-            throw new PEAR_Exception($e->getMessage(), $e->getCode());
-        }
+	if (!is_null($metadata2)) {
+	    $out = $this->runCommand('list', array($metadata1, $metadata2, $search), 1);
+	} else {
+	    $out = $this->runCommand('list', $metadata1, 1);
+	}
+	return $out[$metadata1];
     }
 
 
@@ -100,11 +93,7 @@ class Net_MPD_Database extends Net_MPD_Common
      */
     public function getAll($dir = '')
     {
-        try {
-            return $this->runCommand('listall', $dir, 1);
-        } catch(PEAR_Exception $e) {
-            throw new PEAR_Exception($e->getMessage(), $e->getCode());
-        }
+	return $this->runCommand('listall', $dir, 1);
     }
 
 
@@ -117,11 +106,7 @@ class Net_MPD_Database extends Net_MPD_Common
      */
     public function getAllInfo($dir = '')
     {
-        try {
-            return $this->runCommand('listallinfo', $dir);
-        } catch(PEAR_Exception $e) {
-            throw new PEAR_Exception($e->getMessage(), $e->getCode());
-        }
+	return $this->runCommand('listallinfo', $dir);
     }
 
     /**
@@ -132,11 +117,7 @@ class Net_MPD_Database extends Net_MPD_Common
      */
     public function getInfo($dir = '')
     {
-        try {
-            return $this->runCommand('lsinfo', $dir);
-        } catch(PEAR_Exception $e) {
-            throw new PEAR_Exception($e->getMessage(), $e->getCode());
-        }
+	return $this->runCommand('lsinfo', $dir);
     }
 }
 ?>
