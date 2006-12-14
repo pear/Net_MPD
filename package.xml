@@ -15,7 +15,7 @@
     <release>
         <version>0.3.0dev</version>
         <date>2006-12-10</date>
-        <license>PHP License 3.0</license>
+        <license>PHP License 3.01</license>
         <state>devel</state>
         <notes>- Fixed bug #9392; Error codes can now be accessed using Exception::getCode()
 - Fixed bug #9334; Now installs into PEAR/Net/

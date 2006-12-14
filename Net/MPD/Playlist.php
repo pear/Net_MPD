@@ -12,7 +12,7 @@
  * @category  Networking
  * @author    Graham Christensen <graham.christensen@itrebal.com>
  * @copyright 2006 Graham Christensen
- * @license   PHP License 3.0
+ * @license   PHP License 3.01
  * @version   CVS: $ID:$
  */
 
@@ -25,7 +25,7 @@
  * @package   Net_MPD
  * @author    Graham Christensen <graham.christensen@itrebal.com>
  * @copyright 2006 Graham Christensen
- * @license   http://www.php.net/license/3_0.txt
+ * @license   http://www.php.net/license/3_01.txt
  * @vers
  */
 class Net_MPD_Playlist extends Net_MPD_Common
