@@ -13,13 +13,11 @@
         </maintainer>
     </maintainers>
     <release>
-        <version>0.3.0dev</version>
-        <date>2006-12-10</date>
+        <version>1.0.0</version>
+        <date>2007-01-18</date>
         <license>PHP License 3.01</license>
-        <state>devel</state>
-        <notes>- Fixed bug #9392; Error codes can now be accessed using Exception::getCode()
-- Fixed bug #9334; Now installs into PEAR/Net/
-- Fixed bug #9341; Now permits $e->getCode();</notes>
+        <state>stable</state>
+        <notes>Removed unecissary try/catch blocks. Moving to stable.</notes>
         <deps>
             <dep type="php" rel="ge" version="5.1.4"/>
         </deps>
@@ -59,6 +57,12 @@
 	    <notes>- Fixed bug #9392; Error codes can now be accessed using Exception::getCode()
 - Fixed bug #9334; Now installs into PEAR/Net/
 - Fixed bug #9341; Now permits $e->getCode();</notes>
+       </release>
+       <release>
+            <version>1.0.0</version>
+            <state>stable</state>
+            <date>2007-01-18</date>
+            <notes>Removed unecissary try/catch blocks. Moving to stable.</notes>
        </release>
     </changelog>
 </package>
