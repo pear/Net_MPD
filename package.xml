@@ -3,7 +3,7 @@
 <package version="1.0" packagerversion="1.4.9">
     <name>Net_MPD</name>
     <summary>Music Player Daemon interaction API</summary>
-    <description>Rrovides wrappers to easily use the MPD socket commands.</description>
+    <description>Provides wrappers to easily use the MPD socket commands.</description>
     <maintainers>
         <maintainer>
             <user>itrebal</user>
