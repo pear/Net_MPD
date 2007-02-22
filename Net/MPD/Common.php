@@ -267,7 +267,7 @@ class Net_MPD_Common
         if (!is_array($input)) {
             $input = array($input);
         }
-        $count = array('outputs' => 0, 'file' => -1, 'key' => 0);
+        $count = array('outputs' => -1, 'file' => -1, 'key' => 0);
         $used_keys = array();
         $output = array();
         $prev = array('key' => null, 'value' => null);
@@ -340,6 +340,9 @@ class Net_MPD_Common
                     case 'outputid':
                     case 'outputname':
                     case 'outputenabled':
+                        if ($key == 'outputid') {
+                            $count['outputs']++;
+                        }
                         $output['outputs'][$count['outputs']][$key] = $value;
                         if ($key == 'outputid') {
                             $count['outputs']++;
@@ -357,8 +360,8 @@ class Net_MPD_Common
                         } else {
                             $output[$key][] = $value;
                         }
-                        break;
-
+                        break
+;
                     //Now that we've covered most of the weird
                     //options of output,
                     //lets cover everything else!
@@ -437,10 +440,7 @@ class Net_MPD_Common
      */
     public function ping()
     {
-	if ($this->runCommand('ping') == array()) {
-	    return true;
-	}
-        return false;
+	return $this->runCommand('ping');
     }
 
 
