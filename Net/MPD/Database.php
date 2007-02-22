@@ -80,6 +80,9 @@ class Net_MPD_Database extends Net_MPD_Common
 	} else {
 	    $out = $this->runCommand('list', $metadata1, 1);
 	}
+	if ($metadata1 == 'filename') {
+	    $metadata1 = 'file';
+	}
 	return $out[$metadata1];
     }
 

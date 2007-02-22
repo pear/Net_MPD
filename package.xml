@@ -70,7 +70,8 @@
             <state>devel</state>
             <date>2007-02-22</date>
             <notes>- Fixed bug #9896; Ping now returns true
-- Fixed bug #9917; Output from Admin::getOutputs() is now accurate</notes>
+- Fixed bug #9917; Output from Net_MPD_Admin::getOutputs() is now accurate
+- Fixed bug #10022; Net_MPD_Database::getMetadata now works properly.</notes>
        </release>
     </changelog>
 </package>
