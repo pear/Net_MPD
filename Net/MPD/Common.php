@@ -333,6 +333,7 @@ class Net_MPD_Common
                     case 'time':
                     case 'bitrate':
                     case 'audio':
+		    case 'updating_db':
                         $output['status'][$key] = $value;
                         break;
 
