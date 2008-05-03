@@ -12,23 +12,21 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <name>Graham Christensen</name>
   <user>itrebal</user>
   <email>graham.christensen@itrebal.com</email>
-  <active>yes</active>
+  <active>no</active>
  </lead>
- <date>2007-02-22</date>
- <time>18:19:52</time>
+ <date>2008-05-03</date>
+ <time>16:04:00</time>
  <version>
-  <release>1.0.1</release>
-  <api>1.0.1</api>
+  <release>1.0.2</release>
+  <api>1.0.2</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license>PHP License 3.01</license>
- <notes>- Fixed bug #9896; Ping now returns true
-- Fixed bug #9917; Output from Admin::getOutputs() is now accurate,
-- Fixed bug #10041; update_id now parsed.
-- Fixed bug #10022 Filename bug fixed.
+ <license>MIT License</license>
+ <notes>- Changed to MIT License
+- Fixed bug #11495
  </notes>
  <contents>
   <dir name="/">
@@ -140,5 +138,19 @@ http://pear.php.net/dtd/package-2.0.xsd">
 - Fixed bug #10022 Filename bug fixed.
    </notes>
   </release>
+  <release>
+	<version>
+		<release>1.0.2</release>
+		<api>1.0.2</api>
+	</version>
+	<stability>
+		<release>stable</stable>
+		<api>stable</api>
+	</stability>
+	<date>2008-05-03</date>
+	<license>MIT License</license>
+	<notes>-Changed to MIT License
+- Fixed Bug #11495</notes>
+	</release>
  </changelog>
 </package>
