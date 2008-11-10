@@ -24,13 +24,13 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  *
- *
  * @category  Networking
  * @package   Net_MPD
  * @author    Graham Christensen <graham.christensen@itrebal.com>
  * @copyright 2006 Graham Christensen
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  * @version   CVS: $ID:$
+ * @link      http://pear.php.net/packages/Net_MPD
  */
 
 
@@ -48,7 +48,7 @@ require_once 'MPD/Common.php';
  * @author    Graham Christensen <graham.christensen@itrebal.com>
  * @copyright 2006 Graham Christensen
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version   CVS: $ID:$
+ * @link      http://pear.php.net/packages/Net_MPD
  */
 class Net_MPD
 {
@@ -79,15 +79,17 @@ class Net_MPD
 
     /**
      * Creates new instances of objects
-     * @param $host Host to connect to, optional (default: localhost)
-     * @param $port Port to connect to, optional (default: 6600)
-     * @param $pass Pass to connect to, optional (default: null)
+     *
+     * @param string $host Host to connect to, optional (default: localhost)
+     * @param int    $port Port to connect to, optional (default: 6600)
+     * @param string $pass Pass to connect to, optional (default: null)
+     *
      * @return object or false on failure
      */
-    function __construct($host = 'localhost', $port = 6600, $pass = null)
+    public function __construct($host = 'localhost', $port = 6600, $pass = null)
     {
-        $this->Admin    = self::factory('Admin'   , $host, $port, $pass);
-        $this->Common   = self::factory('Common'  , $host, $port, $pass);
+        $this->Admin    = self::factory('Admin', $host, $port, $pass);
+        $this->Common   = self::factory('Common', $host, $port, $pass);
         $this->Database = self::factory('Database', $host, $port, $pass);
         $this->Playback = self::factory('Playback', $host, $port, $pass);
         $this->Playlist = self::factory('Playlist', $host, $port, $pass);
@@ -95,13 +97,16 @@ class Net_MPD
 
     /**
      * Creates new instances of objects
-     * @param $class Class to initiate, with out Net_MPD_$class
-     * @param $host Host to connect to, optional (default: localhost)
-     * @param $port Port to connect to, optional (default: 6600)
-     * @param $pass Pass to connect to, optional (default: null)
+     *
+     * @param string $class Class to include, with out Net_MPD_
+     * @param string $host  Host to connect to, optional (default: localhost)
+     * @param int    $port  Port to connect to, optional (default: 6600)
+     * @param string $pass  Pass to connect to, optional (default: null)
+     *
      * @return object or false on failure
      */
-    public static function factory($class, $host = 'localhost', $port = 6600, $pass = null)
+    public static function factory($class, $host = 'localhost', $port = 6600,
+                                   $pass = null)
     {
         $class = ucfirst(strtolower($class));
 
@@ -110,22 +115,26 @@ class Net_MPD
         }
 
         $class = 'Net_MPD_' . $class;
-        $obj = new $class($host, $port, $pass);
+        $obj   = new $class($host, $port, $pass);
 
         return $obj;
     }
 
     /**
-    * Loads the class
-    * @param $class Class to include, with out Net_MPD_
-    * @return bool
-    */
+     * Loads the class
+     *
+     * @param string $class Class to include, with out Net_MPD_
+     *
+     * @return bool
+     */
     protected static function _loadClass($class)
     {
         if (class_exists('Net_MPD_' . $class)) {
             return true;
         }
-        require_once 'Net/MPD/' . $class . '.php';
+
+        include_once 'Net/MPD/' . $class . '.php';
+
         return true;
     }
 }

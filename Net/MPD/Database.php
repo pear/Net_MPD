@@ -28,7 +28,8 @@
  * @author    Graham Christensen <graham.christensen@itrebal.com>
  * @copyright 2006 Graham Christensen
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version   CVS: $ID:$
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/packages/Net_MPD
  */
 
 /**
@@ -41,31 +42,34 @@
  * @author    Graham Christensen <graham.christensen@itrebal.com>
  * @copyright 2006 Graham Christensen
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version   CVS: $ID:$
+ * @link      http://pear.php.net/packages/Net_MPD
  */
 class Net_MPD_Database extends Net_MPD_Common
 {
     /**
      * Case sensitive search for data in the database
      *
-     * @param array $params         array('search_field' => 'search for')
-     * @param bool  $caseSensitive  True for case sensitivity, false for not [default false]
+     * @param array $params        array('search_field' => 'search for')
+     * @param bool  $caseSensitive True for case sensitivity,
+     *                             false for not [default false]
+     *
      * @return array
      */
     public function find($params, $caseSensitive = false)
     {
         $prms = array();
-        foreach($params as $key => $value) {
+
+        foreach ($params as $key => $value) {
             $prms[] = $key;
             $prms[] = $value;
         }
         $cmd = $caseSensitive ? 'find' : 'search';
-	
-	$out = $this->runCommand($cmd, $prms);
-	if (!isset($out['file'])) {
-	    return array();
-	}
-	return $out['file'];
+        
+        $out = $this->runCommand($cmd, $prms);
+        if (!isset($out['file'])) {
+            return array();
+        }
+        return $out['file'];
     }
 
 
@@ -77,6 +81,7 @@ class Net_MPD_Database extends Net_MPD_Common
      * @param string $metadata2 metadata field to search in, optional
      * @param string $search    data to search for in search field,
      *                          required if search field provided
+     *
      * @return array
      */
     public function getMetadata($metadata1, $metadata2 = null, $search = null)
@@ -87,15 +92,16 @@ class Net_MPD_Database extends Net_MPD_Common
                 return false;
             }
         }
-	if (!is_null($metadata2)) {
-	    $out = $this->runCommand('list', array($metadata1, $metadata2, $search), 1);
-	} else {
-	    $out = $this->runCommand('list', $metadata1, 1);
-	}
-	if ($metadata1 == 'filename') {
-	    $metadata1 = 'file';
-	}
-	return $out[$metadata1];
+        if (!is_null($metadata2)) {
+            $data = array($metadata1, $metadata2, $search);
+            $out  = $this->runCommand('list', $data, 1);
+        } else {
+            $out = $this->runCommand('list', $metadata1, 1);
+        }
+        if ($metadata1 == 'filename') {
+            $metadata1 = 'file';
+        }
+        return $out[$metadata1];
     }
 
 
@@ -103,12 +109,13 @@ class Net_MPD_Database extends Net_MPD_Common
     /**
      * Lists all files and folders in the directory recursively
      *
-     * @param $dir string directory to start in, optional
+     * @param string $dir directory to start in, optional
+     *
      * @return array
      */
     public function getAll($dir = '')
     {
-	return $this->runCommand('listall', $dir, 1);
+        return $this->runCommand('listall', $dir, 1);
     }
 
 
@@ -116,23 +123,25 @@ class Net_MPD_Database extends Net_MPD_Common
     /**
      * Lists all files/folders recursivly, listing any related informaiton
      *
-     * @param $dir string directory to start in, optional
+     * @param string $dir directory to start in, optional
+     *
      * @return array
      */
     public function getAllInfo($dir = '')
     {
-	return $this->runCommand('listallinfo', $dir);
+        return $this->runCommand('listallinfo', $dir);
     }
 
     /**
      * Lists content of the directory
      *
-     * @param $dir string directory to work in, optional
+     * @param string $dir directory to work in, optional
+     *
      * @return array
      */
     public function getInfo($dir = '')
     {
-	return $this->runCommand('lsinfo', $dir);
+        return $this->runCommand('lsinfo', $dir);
     }
 }
 ?>

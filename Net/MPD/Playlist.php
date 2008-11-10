@@ -22,12 +22,13 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  *
- * @package   Net_MPD
  * @category  Networking
+ * @package   Net_MPD
  * @author    Graham Christensen <graham.christensen@itrebal.com>
  * @copyright 2006 Graham Christensen
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version   CVS: $ID:$
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/packages/Net_MPD
  */
 
 /**
@@ -40,20 +41,21 @@
  * @author    Graham Christensen <graham.christensen@itrebal.com>
  * @copyright 2006 Graham Christensen
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @vers
+ * @link      http://pear.php.net/packages/Net_MPD
  */
 class Net_MPD_Playlist extends Net_MPD_Common
 {
     /**
      * List playlists in specified directory
      *
-     * @param $dir string directory path, optional
+     * @param string $dir directory path, optional
+     *
      * @return bool true on success int on failure
      */
     public function getPlaylists($dir = '')
     {
-	$out = $this->runCommand('lsinfo', $dir);
-	return $out['playlist'];
+        $out = $this->runCommand('lsinfo', $dir);
+        return $out['playlist'];
     }
 
 
@@ -61,13 +63,14 @@ class Net_MPD_Playlist extends Net_MPD_Common
     /**
      * Add file to playlist
      *
-     * @param $file string filename
+     * @param string $file filename
+     *
      * @return bool
      */
     public function addSong($file)
     {
-	$this->runCommand('add', $file);
-	return true;
+        $this->runCommand('add', $file);
+        return true;
     }
 
 
@@ -79,8 +82,8 @@ class Net_MPD_Playlist extends Net_MPD_Common
      */
     public function clear()
     {
-	$this->runCommand('clear');
-	return true;
+        $this->runCommand('clear');
+        return true;
     }
 
 
@@ -92,11 +95,11 @@ class Net_MPD_Playlist extends Net_MPD_Common
      */
     public function getCurrentSong()
     {
-	$out = $this->runCommand('currentsong');
-	if (!isset($out['file'][0])) {
-	    return false;
-	}
-	return $out['file'][0];
+        $out = $this->runCommand('currentsong');
+        if (!isset($out['file'][0])) {
+            return false;
+        }
+        return $out['file'][0];
     }
 
 
@@ -104,13 +107,14 @@ class Net_MPD_Playlist extends Net_MPD_Common
     /**
      * Delete song from playlist
      *
-     * @param $song int song position in playlist
+     * @param int $song song position in playlist
+     *
      * @return bool
      */
     public function deleteSong($song)
     {
-	$this->runCommand('delete', $song);
-	return true;
+        $this->runCommand('delete', $song);
+        return true;
     }
 
 
@@ -118,13 +122,14 @@ class Net_MPD_Playlist extends Net_MPD_Common
     /**
      * Delete song from playlist by song Id
      *
-     * @param $id int song Id
+     * @param int $id song Id
+     *
      * @return bool
      */
     public function deleteSongId($id)
     {
-	$this->runCommand('deleteid', $id);
-	return true;
+        $this->runCommand('deleteid', $id);
+        return true;
     }
 
 
@@ -132,13 +137,14 @@ class Net_MPD_Playlist extends Net_MPD_Common
     /**
      * Loads a playlist into the current playlist
      *
-     * @param $playlist string playlist name
+     * @param string $playlist playlist name
+     *
      * @return bool
      */
     public function loadPlaylist($playlist)
     {
-	$this->runCommand('load', $playlist);
-	return true;
+        $this->runCommand('load', $playlist);
+        return true;
     }
 
 
@@ -146,14 +152,15 @@ class Net_MPD_Playlist extends Net_MPD_Common
     /**
      * Move song in the playlist
      *
-     * @param $from int song position in the playlist
-     * @param $to int song position to move it to
+     * @param int $from song position in the playlist
+     * @param int $to   song position to move it to
+     *
      * @return bool
      */
     public function moveSong($from, $to)
     {
-	$this->runCommand('move', array($from, $to));
-	return true;
+        $this->runCommand('move', array($from, $to));
+        return true;
     }
 
 
@@ -161,14 +168,15 @@ class Net_MPD_Playlist extends Net_MPD_Common
     /**
      * Move song in the playlist by Id
      *
-     * @param $from int song Id
-     * @param $to int song Id to move it to
+     * @param int $fromId song Id
+     * @param int $toId   song Id to move it to
+     *
      * @return bool
      */
     public function moveSongId($fromId, $toId)
     {
-	$this->runCommand('moveid', array($fromId, $toId));
-	return true;
+        $this->runCommand('moveid', array($fromId, $toId));
+        return true;
     }
 
 
@@ -176,13 +184,14 @@ class Net_MPD_Playlist extends Net_MPD_Common
     /**
      * Displays metadata for songs in the playlist by position Id
      *
-     * @param $song int song position, optional
+     * @param int $song song position, optional
+     *
      * @return array of song metadata
      */
     public function getPlaylistInfo($song = null)
     {
-	$out = $this->runCommand('playlistinfo', $song, 0);
-	return isset($out['file']) ? $out['file'] : array();
+        $out = $this->runCommand('playlistinfo', $song, 0);
+        return isset($out['file']) ? $out['file'] : array();
     }
 
 
@@ -190,58 +199,55 @@ class Net_MPD_Playlist extends Net_MPD_Common
     /**
      * Displays metadata for songs in the playlist
      *
-     * @param $song int song Id, optional
+     * @param int $song song Id, optional
+     *
      * @return array of song metadata
      */
     public function getPlaylistInfoId($song = null)
     {
-	return $this->runCommand('playlistid', $song);
+        return $this->runCommand('playlistid', $song);
     }
-
-
 
     /**
      * Get playlist changes
      *
-     * @param $version int playlist version
-     * @param $limit boolean true to limit return
-     *               to only position and id
+     * @param int  $version playlist version
+     * @param bool $limit   true to limit return
+     *                         to only position and id
      *
      * @return array of changes
      */
     public function getChanges($version, $limit = false)
     {
         $cmd = $limit ? 'plchangesposid' : 'plchanges';
-	
-	return $this->runCommand($cmd, $version);
+        
+        return $this->runCommand($cmd, $version);
     }
-
-
 
     /**
      * Delete a playlist
      *
-     * @param $playlist string playlist name
+     * @param string $playlist playlist name
+     *
      * @return true
      */
     public function deletePlaylist($playlist)
     {
-	$this->runCommand('rm', $playlist);
-	return true;
+        $this->runCommand('rm', $playlist);
+        return true;
     }
-
-
 
     /**
      * Save the playlist
      *
-     * @param $playlist string playlist name
+     * @param string $playlist playlist name
+     *
      * @return bool
      */
     public function savePlaylist($playlist)
     {
-	$this->runCommand('save', $playlist);
-	return true;
+        $this->runCommand('save', $playlist);
+        return true;
     }
 
 
@@ -253,8 +259,8 @@ class Net_MPD_Playlist extends Net_MPD_Common
      */
     public function shuffle()
     {
-	$this->runCommand('shuffle');
-	return true;
+        $this->runCommand('shuffle');
+        return true;
     }
 
 
@@ -262,14 +268,15 @@ class Net_MPD_Playlist extends Net_MPD_Common
     /**
      * Swap song by position in the playlist
      *
-     * @param $song1 int song position from
-     * @param $song2 int song position to
+     * @param int $song1 song position from
+     * @param int $song2 song position to
+     *
      * @return bool
      */
     public function swapSong($song1, $song2)
     {
-	$this->runCommand('swap', array($song1, $song2));
-	return true;
+        $this->runCommand('swap', array($song1, $song2));
+        return true;
     }
 
 
@@ -277,14 +284,15 @@ class Net_MPD_Playlist extends Net_MPD_Common
     /**
      * Swaps a song with another song, by Id
      *
-     * @param $song1 int Id of the first song
-     * @param $song2 int Id of the second song
+     * @param int $songId1 Id of the first song
+     * @param int $songId2 Id of the second song
+     *
      * @return true
      */
     public function swapSongId($songId1, $songId2)
     {
-	$this->runCommand('swapid', array($songId1, $songId2));
-	return true;
+        $this->runCommand('swapid', array($songId1, $songId2));
+        return true;
     }
 }
 ?>

@@ -28,7 +28,8 @@
  * @author    Graham Christensen <graham.christensen@itrebal.com>
  * @copyright 2006 Graham Christensen
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version   CVS: $ID:$
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/packages/Net_MPD
  */
 /**
  * API for the playback portion of Music Player Daemon commands
@@ -40,7 +41,7 @@
  * @author    Graham Christensen <graham.christensen@itrebal.com>
  * @copyright 2006 Graham Christensen
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version   CVS: $ID:$
+ * @link      http://pear.php.net/packages/Net_MPD
  */
 class Net_MPD_Playback extends Net_MPD_Common
 {
@@ -51,11 +52,11 @@ class Net_MPD_Playback extends Net_MPD_Common
      */
     public function getCurrentSong()
     {
-	$out = $this->runCommand('currentsong');
-	if (!isset($out['file'][0])) {
-	    return false;
-	}
-	return $out['file'][0];
+        $out = $this->runCommand('currentsong');
+        if (!isset($out['file'][0])) {
+            return false;
+        }
+        return $out['file'][0];
     }
 
 
@@ -63,13 +64,14 @@ class Net_MPD_Playback extends Net_MPD_Common
     /**
      * Set crossfade between songs
      *
-     * @param $sec int, seconds to crossfade
+     * @param int $sec seconds to crossfade
+     *
      * @return bool
      */
     public function setCrossfade($sec)
     {
-	$this->runCommand('crossfade', $sec);
-	return true;
+        $this->runCommand('crossfade', $sec);
+        return true;
     }
 
 
@@ -81,8 +83,8 @@ class Net_MPD_Playback extends Net_MPD_Common
      */
     public function nextSong()
     {
-	$this->runCommand('next');
-	return true;
+        $this->runCommand('next');
+        return true;
     }
 
     /**
@@ -92,8 +94,8 @@ class Net_MPD_Playback extends Net_MPD_Common
      */
     public function previousSong()
     {
-	$this->runCommand('previous');
-	return true;
+        $this->runCommand('previous');
+        return true;
     }
 
 
@@ -105,8 +107,8 @@ class Net_MPD_Playback extends Net_MPD_Common
      */
     public function pause()
     {
-	$this->runCommand('pause');
-	return true;
+        $this->runCommand('pause');
+        return true;
     }
 
 
@@ -114,25 +116,27 @@ class Net_MPD_Playback extends Net_MPD_Common
     /**
      * Starts playback
      *
-     * @param $song int, song position in playlist to start playing at
+     * @param int $song song position in playlist to start playing at
+     *
      * @return bool
      */
     public function play($song = 0)
     {
-	$this->runCommand('play', $song);
-	return true;
+        $this->runCommand('play', $song);
+        return true;
     }
 
     /**
      * Starts playback by Id
      *
-     * @param $song int, song Id
+     * @param int $song song Id
+     *
      * @return bool
      */
     public function playId($song = 0)
     {
-	$this->runCommand('playid', $song);
-	return true;
+        $this->runCommand('playid', $song);
+        return true;
     }
 
 
@@ -140,29 +144,30 @@ class Net_MPD_Playback extends Net_MPD_Common
     /**
      * Sets 'random' mode on/off
      *
-     * @param $on bool true or false, for random or not (respectively),
-     optional
+     * @param bool $on true or false, for random or not (respectively), optional
+     *
      * @return bool
      */
     public function random($on = false)
     {
-	$this->runCommand('random', (int)$on);
-	return true;
+        $this->runCommand('random', (int)$on);
+        return true;
     }
 
 
 
     /**
      * Sets 'random' mode on/off
+     *
+     * @param bool $on true or false, for repeat or not (respectively), optional
+     *
      * @access public
-     * @param $on bool true or false, for repeat or not (respectively),
-     optional
      * @return true
      */
     public function repeat($on = false)
     {
-	$this->runCommand('repeat', (int)$on);
-	return true;
+        $this->runCommand('repeat', (int)$on);
+        return true;
     }
 
 
@@ -170,14 +175,15 @@ class Net_MPD_Playback extends Net_MPD_Common
     /**
      * Seek a position in a song
      *
-     * @param $song int song position in playlist
-     * @param $time int time in seconds to seek to
+     * @param int $song song position in playlist
+     * @param int $time time in seconds to seek to
+     *
      * @return bool
      */
     public function seek($song, $time)
     {
-	$this->runCommand('seek', array($song, $time));
-	return true;
+        $this->runCommand('seek', array($song, $time));
+        return true;
     }
 
 
@@ -185,14 +191,15 @@ class Net_MPD_Playback extends Net_MPD_Common
     /**
      * Seek a position in a song
      *
-     * @param $song int song Id
-     * @param $time int time in seconds to seek to
+     * @param int $song song Id
+     * @param int $time time in seconds to seek to
+     *
      * @return bool
      */
     public function seekId($song, $time)
     {
-	$this->runCommand('seekid', array($song, $time));
-	return true;
+        $this->runCommand('seekid', array($song, $time));
+        return true;
     }
 
 
@@ -200,13 +207,14 @@ class Net_MPD_Playback extends Net_MPD_Common
     /**
      * Set volume
      *
-     * @param $vol int volume
+     * @param int $vol volume
+     *
      * @return true
      */
     public function setVolume($vol)
     {
-	$this->runCommand('setvol', $vol);
-	return true;
+        $this->runCommand('setvol', $vol);
+        return true;
     }
 
 
@@ -218,8 +226,8 @@ class Net_MPD_Playback extends Net_MPD_Common
      */
     public function stop()
     {
-	$this->runCommand('stop');
-	return true;
+        $this->runCommand('stop');
+        return true;
     }
 }
 ?>

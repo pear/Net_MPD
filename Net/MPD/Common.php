@@ -22,13 +22,13 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE. 
  *
- *
  * @category  Networking
  * @package   Net_MPD
  * @author    Graham Christensen <graham.christensen@itrebal.com>
  * @copyright 2006 Graham Christensen
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version   CVS: $ID:$
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/packages/Net_MPD
  */
 
 /**
@@ -42,58 +42,57 @@
  * @author    Graham Christensen <graham.christensen@itrebal.com>
  * @copyright 2006 Graham Christensen
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- * @version   CVS: $ID:$
+ * @link      http://pear.php.net/packages/Net_MPD
  */
 class Net_MPD_Common
 {
     //Connection & Write Errors
-    const CONNECTION_NOT_OPENED   = 100;
-    const CONNECTION_FAILED       = 102;
-    const WRITE_FAILED            = 103;
+    const CONNECTION_NOT_OPENED = 100;
+    const CONNECTION_FAILED     = 102;
+    const WRITE_FAILED          = 103;
 
     //MPD Errors
-    const ACK_NOT_LIST            = 1;
-    const ACK_ARG                 = 2;
-    const ACK_PASSWORD            = 3;
-    const ACK_PERMISSION          = 4;
-    const ACK_UNKOWN              = 5;
-    const ACK_NO_EXIST            = 50;
-    const ACK_PLAYLIST_MAX        = 51;
-    const ACK_SYSTEM              = 52;
-    const ACK_PLAYLIST_LOAD       = 53;
-    const ACK_UPDATE_ALREADY      = 54;
-    const ACK_PLAYER_SYNC         = 55;
-    const ACK_EXIST               = 56;
-    const ACK_COMMAND_FAILED      = -100;
+    const ACK_NOT_LIST       = 1;
+    const ACK_ARG            = 2;
+    const ACK_PASSWORD       = 3;
+    const ACK_PERMISSION     = 4;
+    const ACK_UNKOWN         = 5;
+    const ACK_NO_EXIST       = 50;
+    const ACK_PLAYLIST_MAX   = 51;
+    const ACK_SYSTEM         = 52;
+    const ACK_PLAYLIST_LOAD  = 53;
+    const ACK_UPDATE_ALREADY = 54;
+    const ACK_PLAYER_SYNC    = 55;
+    const ACK_EXIST          = 56;
+    const ACK_COMMAND_FAILED = -100;
 
     //MPD Responces
-    const RESPONSE_OK             = 'OK';
+    const RESPONSE_OK = 'OK';
 
-    private $_connection          = null;
-    protected $_errors            = array();
-    private $_current_error       = array();
-    protected $_commands          = array();
-    protected $_output            = array();
-    private $connection_params    = array();
+    private $_connection         = null;
+    protected $_errors           = array();
+    private $_current_error      = array();
+    protected $_commands         = array();
+    protected $_output           = array();
+    protected $connection_params = array();
 
 
 
     /**
      * Set connection params
      *
-     * @param $host host to connect to, (default: localhost)
-     * @param $port port to connec through, (default: 6600)
-     * @param $password password to send, (default: null)
+     * @param string $host     host to connect to, (default: localhost)
+     * @param int    $port     port to connec through, (default: 6600)
+     * @param string $password password to send, (default: null)
+     *
      * @return void
      */
     function __construct($host = 'localhost', $port = 6600, $password = null)
     {
-        $this->connection_params['host'] = $host;
-        $this->connection_params['port'] = $port;
+        $this->connection_params['host']     = $host;
+        $this->connection_params['port']     = $port;
         $this->connection_params['password'] = $password;
     }
-
-
 
     /**
      * Connect to MPD
@@ -105,6 +104,7 @@ class Net_MPD_Common
         if ($this->isConnected()) {
             return true;
         }
+
         $connection = @fsockopen($this->connection_params['host'], $this->connection_params['port'], $errn, $errs, 4);
         if ($connection) {
             $this->_connection = $connection;
@@ -116,6 +116,7 @@ class Net_MPD_Common
                     break;
                 }
             }
+
             if (!is_null($this->connection_params['password'])) {
                 if ($this->runCommand('password', $this->connection_params['password']) === self::ACK_PASSWORD) {
                     throw new PEAR_Exception('Password invalid.', self::ACK_PASSWORD);
@@ -123,6 +124,7 @@ class Net_MPD_Common
             }
             return true;
         }
+
         throw new PEAR_Exception('Error connecting: '.$errn.' ; '.$errs, self::CONNECTION_FAILED);
     }
 
@@ -135,10 +137,7 @@ class Net_MPD_Common
      */
     public function isConnected()
     {
-        if (!is_resource($this->_connection)) {
-            return false;
-        }
-        return true;
+        return is_resource($this->_connection);
     }
 
 
@@ -150,10 +149,10 @@ class Net_MPD_Common
      */
     public function disconnect()
     {
-	$this->runCommand('close');
-	fclose($this->_connection);
-	$this->_connection = null;
-	return true;
+        $this->runCommand('close');
+        fclose($this->_connection);
+        $this->_connection = null;
+        return true;
     }
 
 
@@ -161,33 +160,31 @@ class Net_MPD_Common
     /**
      * Write data to the socket
      *
-     * @param $command string data to be sent
+     * @param string $data data to be sent
      *
      * @return bool
-     *
      */
     function write($data)
     {
         //Are we connected?
         if (!$this->isConnected()) {
             // Try to connect
-	    $this->connect();
+            $this->connect();
         }
+
         //Write the data
         if (!fwrite($this->_connection, $data."\r\n")) {
             throw new PEAR_Exception('Write failed', self::WRITE_FAILED);
         }
+
         $this->_commands[] = $data;
         return true;
     }
-
-
 
     /**
      * Read data from the socket
      *
      * @return array of raw output
-     *
      */
     function read()
     {
@@ -195,15 +192,20 @@ class Net_MPD_Common
         if (!$this->isConnected()) {
             throw new PEAR_Exception('Not connected', self::CONNECTION_NOT_OPENED);
         }
+
         //Loop through the connection, putting the data into $line
         $output = array();
         while (!feof($this->_connection)) {
             $line = fgets($this->_connection);
+
             if (preg_match('/^ACK \[(.*?)\@(.*?)\] \{(.*?)\} (.*?)$/', $line, $matches)) {
                 //If the output is an ACK error
                 $this->runCommand('clearerror'); //Cleanup the error
+
                 $this->_errors[] = $matches;
+
                 $this->_current_error = array('ack' => $matches[1], 'func' => $matches[3], 'error' => $matches[4]);
+
                 throw new PEAR_Exception('Command Failed', self::ACK_COMMAND_FAILED);
             } elseif (trim($line) == self::RESPONSE_OK) {
                 //The last line of output was hit, close the loop
@@ -213,10 +215,9 @@ class Net_MPD_Common
                 $output[] = $line;
             }
         }
+
         return $output;
     }
-
-
 
     /**
      * Get the current error data
@@ -228,14 +229,12 @@ class Net_MPD_Common
         return $this->_current_error;
     }
 
-
-
     /**
      * Run command
      *
-     * @param $command string a command to be executed through MPD
-     * @param $args mixed string for a single argument, array for multiple
-     * @param $parse mixed false to parse the output, int for parse style
+     * @param string $command a command to be executed through MPD
+     * @param mixed  $args    string for a single argument, array for multiple
+     * @param mixed  $parse   false to parse the output, int for parse style
      *
      * @return array of server output
      */
@@ -243,23 +242,26 @@ class Net_MPD_Common
     {
         //Generate the command
         if (is_array($args)) {
-            foreach($args as $arg) {
-                $command.= ' "'.str_replace('"', '\"', $arg) .'"';
+            foreach ($args as $arg) {
+                $command .= ' "'.str_replace('"', '\"', $arg) .'"';
             }
         } elseif (!is_null($args)) {
-            $command.= ' "'.str_replace('"', '\"', $args) .'"';
+            $command .= ' "'.str_replace('"', '\"', $args) .'"';
         }
+
         //Write and then capture the output
-	$this->write($command);
-	$output = $this->read();
-	
+        $this->write($command);
+        $output = $this->read();
+
         $this->_output[] = array($command, $output);
         if ($output === array()) {
             return true;
         }
+
         if ($parse !== false) {
             return $this->parseOutput($output, $parse);
         }
+
         return $output;
     }
 
@@ -269,8 +271,8 @@ class Net_MPD_Common
      * Parse MPD output on a line-by-line basis
      * creating output that is easy to work with
      *
-     * @param $input array of input from MPD
-     * @param $style int style number,'0' for the "intelligent" sorting
+     * @param array $input input from MPD
+     * @param int   $style style number,'0' for the "intelligent" sorting
      *
      * @return array
      */
@@ -279,12 +281,14 @@ class Net_MPD_Common
         if (!is_array($input)) {
             $input = array($input);
         }
-        $count = array('outputs' => -1, 'file' => -1, 'key' => 0);
+
+        $count     = array('outputs' => -1, 'file' => -1, 'key' => 0);
         $used_keys = array();
-        $output = array();
-        $prev = array('key' => null, 'value' => null);
+        $output    = array();
+        $prev      = array('key' => null, 'value' => null);
         $dirtoggle = false;
-        foreach($input as $line) {
+
+        foreach ($input as $line) {
             if (is_array($line)) {
                 $this->_errors[] = 'Server output not expected: '.print_r($line, true);
                 continue;
@@ -295,108 +299,114 @@ class Net_MPD_Common
                     continue;
                 }
             }
-            $key = trim($parts[0]);
+
+            $key   = trim($parts[0]);
             $value = trim($parts[1]);
+
             if ($style == 0) {
                 switch ($key) {
-                    //The following has to do strictly
-                    //with files in the output
-                    case 'file':
-                    case 'Artist':
-                    case 'Album':
-                    case 'Title':
-                    case 'Track':
-                    case 'Name':
-                    case 'Genre':
-                    case 'Date':
-                    case 'Composer':
-                    case 'Performer':
-                    case 'Comment':
-                    case 'Disc':
-                    case 'Id':
-                    case 'Pos':
-                    case 'Time':
-                        if ($key == 'file') {
-                            $count['file']++;
-                        }
-                        $output['file'][$count['file']][$key] = $value;
-                        break;
+                //The following has to do strictly
+                //with files in the output
+                case 'file':
+                case 'Artist':
+                case 'Album':
+                case 'Title':
+                case 'Track':
+                case 'Name':
+                case 'Genre':
+                case 'Date':
+                case 'Composer':
+                case 'Performer':
+                case 'Comment':
+                case 'Disc':
+                case 'Id':
+                case 'Pos':
+                case 'Time':
+                    if ($key == 'file') {
+                        $count['file']++;
+                    }
+                    $output['file'][$count['file']][$key] = $value;
+                    break;
 
-                    //The next section is for a 'stats' call
-                    case 'artists':
-                    case 'albums':
-                    case 'songs':
-                    case 'uptime':
-                    case 'playtime':
-                    case 'db_playtime':
-                    case 'db_update':
-                        $output['stats'][$key] = $value;
-                        break;
+                //The next section is for a 'stats' call
+                case 'artists':
+                case 'albums':
+                case 'songs':
+                case 'uptime':
+                case 'playtime':
+                case 'db_playtime':
+                case 'db_update':
+                    $output['stats'][$key] = $value;
+                    break;
 
-                    //Now for a status call:
-                    case 'volume':
-                    case 'repeat':
-                    case 'random':
-                    case 'playlistlength':
-                    case 'xfade':
-                    case 'state':
-                    case 'song':
-                    case 'songid':
-                    case 'time':
-                    case 'bitrate':
-                    case 'audio':
-		    case 'updating_db':
+                //Now for a status call:
+                case 'volume':
+                case 'repeat':
+                case 'random':
+                case 'playlistlength':
+                case 'xfade':
+                case 'state':
+                case 'song':
+                case 'songid':
+                case 'time':
+                case 'bitrate':
+                case 'audio':
+                case 'updating_db':
+                    $output['status'][$key] = $value;
+                    break;
+
+                //Outputs
+                case 'outputid':
+                case 'outputname':
+                case 'outputenabled':
+                    if ($key == 'outputid') {
+                        $count['outputs']++;
+                    }
+                    $output['outputs'][$count['outputs']][$key] = $value;
+                    if ($key == 'outputid') {
+                        $count['outputs']++;
+                    }
+                    break;
+
+                //The 'playlist' case works in 2 scenarios
+                //1) in a file/directory listing
+                //2) in a status call
+                // This is to determine if it was in a status call
+                // or in a directory call.
+                case 'playlist':
+                    if ($prev['key'] == 'random') {
                         $output['status'][$key] = $value;
-                        break;
-
-                    //Outputs
-                    case 'outputid':
-                    case 'outputname':
-                    case 'outputenabled':
-                        if ($key == 'outputid') {
-                            $count['outputs']++;
-                        }
-                        $output['outputs'][$count['outputs']][$key] = $value;
-                        if ($key == 'outputid') {
-                            $count['outputs']++;
-                        }
-                        break;
-
-                    //The 'playlist' case works in 2 scenarios
-                    //1) in a file/directory listing
-                    //2) in a status call
-                    // This is to determine if it was in a status call
-                    // or in a directory call.
-                    case 'playlist':
-                        if ($prev['key'] == 'random') {
-                            $output['status'][$key] = $value;
-                        } else {
-                            $output[$key][] = $value;
-                        }
-                        break
-;
-                    //Now that we've covered most of the weird
-                    //options of output,
-                    //lets cover everything else!
-                    default:
-                        if (isset($used_keys[$key])) {
-                            $used_keys = array();
-                            $count['key']++;
-                        }
-                        $used_keys[$key] = true;
-                        //$output[$count['key']][$key] = $value;//This is rarely useful
+                    } else {
                         $output[$key][] = $value;
-                        break;
+                    }
+
+                    break;
+
+                //Now that we've covered most of the weird
+                //options of output,
+                //lets cover everything else!
+                default:
+                    if (isset($used_keys[$key])) {
+                        $used_keys = array();
+                        $count['key']++;
+                    }
+                    $used_keys[$key] = true;
+                    //$output[$count['key']][$key] = $value;//This is rarely useful
+                    $output[$key][] = $value;
+                    break;
                 }
             } elseif ($style == 1) {
                 $output[$key][] = $value;
             }
+
             if ($key == 'directory') {
                 $dirtoggle = true;
             }
-            $prev['key'] = $key;
+
+            $prev['key']   = $key;
             $prev['value'] = $value;
         }
+
         return $output;
     }
 
@@ -421,10 +431,11 @@ class Net_MPD_Common
      */
     public function getNotCommands()
     {
-	$cmds = $this->runCommand('notcommands');
+        $cmds = $this->runCommand('notcommands');
         if (!isset($cmds['command'])) {
             return array();
         }
+
         return $cmds['command'];
     }
 
@@ -437,8 +448,9 @@ class Net_MPD_Common
      */
     public function getCommands()
     {
-	$cmds = $this->runCommand('commands');
-	if (!isset($cmds['command'])) {
+        $cmds = $this->runCommand('commands');
+
+        if (!isset($cmds['command'])) {
             return array();
         }
         return $cmds['command'];
@@ -453,7 +465,7 @@ class Net_MPD_Common
      */
     public function ping()
     {
-	return $this->runCommand('ping');
+        return $this->runCommand('ping');
     }
 
 
@@ -465,11 +477,11 @@ class Net_MPD_Common
      */
     public function getStats()
     {
-	$stats = $this->runCommand('stats');
-	if (!isset($stats['stats'])) {
-	    return false;
-	}
-	return $stats['stats'];
+        $stats = $this->runCommand('stats');
+        if (!isset($stats['stats'])) {
+            return false;
+        }
+        return $stats['stats'];
     }
 
 
@@ -481,11 +493,11 @@ class Net_MPD_Common
      */
     public function getStatus()
     {
-	$status = $this->runCommand('status');
-	if (!isset($status['status'])) {
-	    return false;
-	}
-	return $status['status'];
+        $status = $this->runCommand('status');
+        if (!isset($status['status'])) {
+            return false;
+        }
+        return $status['status'];
     }
 }
 ?>
